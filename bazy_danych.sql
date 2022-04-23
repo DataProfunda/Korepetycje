@@ -9,7 +9,16 @@ CREATE TABLE table1 (
     Age double
 );
 
--- Stwórz tablę drugą 
+
+CREATE TABLE table2 (
+    PassengerId	 int,
+    SibSp int,
+    Parch int,
+    Ticket varchar(255),
+    Fare double,
+    Cabin varchar(255),
+    Embarked varchar(255)
+);
 
 
 
@@ -29,7 +38,7 @@ SELECT PassengerId, Survived, Pclass, LENGTH(Name) FROM table1 WHERE Pclass = 1 
 
 SELECT PassengerId, Survived, Pclass, LENGTH(Name) FROM table1 WHERE Pclass = 1 or LENGTH(Name) > 10;
 
-SELECT PassengerId, Survived, Pclass, LENGTH(Name) FROM table1 WHERE Survived <> 0;
+SELECT PassengerId, Survived, Pclass, LENGTH(Name) FROM table1 WHERE Survived <> 0; 
 
 SELECT PassengerId, Survived, Pclass, Name FROM table1 WHERE name LIKE '%Elizabeth%';
 
@@ -54,7 +63,7 @@ SELECT PassengerId, Survived, Pclass, Name FROM table1 WHERE Survived IS NOT NUL
 
 --7. UPDATE
 UPDATE table1
-SET Survived = 1
+SET Survived = 1, Pclass = 2
 WHERE Name='Braund, Mr. Owen Harris';
 
 -- Zmień płeć na żeńską 3 różnych osób
@@ -70,8 +79,8 @@ SELECT * FROM table1 LIMIT 20;
 SELECT Name, MIN(Age) FROM table1;
 
 -- Wyciągnij najstarszą osobę
--- Wyciągnij 3 najmłodsze osoby
 
+-- Wyciągnij 3 najmłodsze osoby
 
 --10. Group BY
 
@@ -90,17 +99,28 @@ SELECT SUM(Fare) as Fare FROM table2;
 SELECT AVG(Age) as Avg_age FROM table1;
 -- Policz średnią Fare
 
---13.
+
+--BETWEEN
+
+SELECT * FROM table1 WHERE Age BETWEEN 10 AND 20;
+
+--13. JOIN
+
+SELECT *
+FROM table1
+INNER JOIN table2
+ON table1.PassengerId = table2.PassengerId;
 
 
+SELECT * FROM table1 
+LEFT JOIN table2  ON table1.PassengerId = table2.PassengerId
+UNION
+SELECT * FROM table1 
+RIGHT JOIN table2 ON table1.PassengerId = table2.PassengerId
 
---Rozwiązanie zadania 1
-CREATE TABLE table2 (
-    PassengerId	 int,
-    SibSp int,
-    Parch int,
-    Ticket varchar(255),
-    Fare double,
-    Cabin varchar(255),
-    Embarked varchar(255)
-);
+
+UPDATE table1
+
+SET Survived = 1, Pclass = 2
+
+WHERE Name In (SELECT Name FROM table1 WHERE Age > 26);
