@@ -27,7 +27,7 @@ Mr. T
 
 #print(r'\tHello World') #Raw string
 
-pattern = re.compile(r'abc')
+pattern = re.compile(r'\d\d\d.\d\d\d.\d\d\d')
 
 matches = pattern.finditer(text_to_search)
 
@@ -35,3 +35,11 @@ for match in matches:
     print(match)
 
 print(text_to_search[1:4])
+
+with open('C:/Users/koste/OneDrive/Pulpit/Korki/code_snippets/Python-Regular-Expressions/data.txt', 'r', encoding='utf-8') as f:
+    contents = f.read()
+    
+    matches = pattern.finditter(text_to_search)
+    
+    for match in matches:
+        print(match)    
